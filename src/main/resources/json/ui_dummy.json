@@ -1,0 +1,114 @@
+[
+  {
+    "type": "switch",
+    "field": "successful",
+    "title": "成功/失败",
+    "info": "",
+    "_fc_drag_tag": "switch",
+    "hidden": false,
+    "display": true,
+    "value": true,
+    "props": {
+      "activeText": "成功",
+      "inactiveText": "失败"
+    }
+  },
+  {
+    "type": "input",
+    "field": "resp_code",
+    "title": "响应码 (如 200)",
+    "info": "",
+    "value": "200",
+    "_fc_drag_tag": "input",
+    "hidden": false,
+    "display": true
+  },
+  {
+    "type": "input",
+    "field": "resp_msg",
+    "title": "响应消息 (如 OK)",
+    "info": "",
+    "value": "OK",
+    "_fc_drag_tag": "input",
+    "hidden": false,
+    "display": true
+  },
+  {
+    "type": "input",
+    "field": "connect_time",
+    "title": "连接时间 (毫秒)",
+    "info": "",
+    "value": "${__Random(1,5)}",
+    "_fc_drag_tag": "input",
+    "hidden": false,
+    "display": true
+  },
+  {
+    "type": "input",
+    "field": "latency",
+    "title": "延迟 (毫秒)",
+    "info": "",
+    "value": "${__Random(1,50)}",
+    "_fc_drag_tag": "input",
+    "hidden": false,
+    "display": true
+  },
+  {
+    "type": "input",
+    "field": "resp_time",
+    "title": "响应时间 (毫秒)",
+    "info": "",
+    "value": "${__Random(50,500)}",
+    "_fc_drag_tag": "input",
+    "hidden": false,
+    "display": true
+  },
+  {
+    "type": "switch",
+    "field": "waiting",
+    "title": "模拟响应时间 (sleep)",
+    "info": "",
+    "_fc_drag_tag": "switch",
+    "hidden": false,
+    "display": true,
+    "value": true
+  },
+  {
+    "type": "input",
+    "field": "req_data",
+    "title": "请求内容",
+    "info": "",
+    "props": {
+      "type": "textarea",
+      "rows": 5
+    },
+    "_fc_drag_tag": "input",
+    "hidden": false,
+    "display": true,
+    "value": "Request Data."
+  },
+  {
+    "type": "input",
+    "field": "resp_data",
+    "title": "响应内容",
+    "info": "",
+    "props": {
+      "type": "textarea",
+      "rows": 5
+    },
+    "_fc_drag_tag": "input",
+    "hidden": false,
+    "display": true,
+    "value": "Response Data."
+  },
+  {
+    "type": "input",
+    "field": "url",
+    "title": "URL",
+    "info": "",
+    "value": "",
+    "_fc_drag_tag": "input",
+    "hidden": false,
+    "display": true
+  }
+]
