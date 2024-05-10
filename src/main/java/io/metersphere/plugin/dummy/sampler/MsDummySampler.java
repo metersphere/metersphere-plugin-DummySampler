@@ -53,12 +53,13 @@ public class MsDummySampler extends MsTestElement {
         }
         DummySampler initDummySampler = initDummySampler();
         if (initDummySampler != null) {
-            tree.add(initDummySampler());
-            final HashTree mqttTree = tree;
+            final HashTree groupTree = tree.add(initDummySampler());
             if (CollectionUtils.isNotEmpty(hashTree)) {
-                for (MsTestElement el : hashTree) {
-                    el.toHashTree(mqttTree, el.getHashTree(), config);
-                }
+                hashTree.forEach(el -> {
+                    // 给所有孩子加一个父亲标志
+                    el.setParent(this);
+                    el.toHashTree(groupTree, el.getHashTree(), config);
+                });
             }
         } else {
             LogUtil.error("Connect Sampler 生成失败");
