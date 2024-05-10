@@ -1,7 +1,5 @@
 package io.metersphere.plugin.dummy.sampler;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
 import io.metersphere.plugin.core.MsParameter;
 import io.metersphere.plugin.core.MsTestElement;
 import io.metersphere.plugin.core.utils.LogUtil;
@@ -10,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import kg.apc.jmeter.samplers.DummySampler;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.jmeter.report.core.JsonUtil;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.HashTree;
 
@@ -24,26 +23,16 @@ public class MsDummySampler extends MsTestElement {
 
     private String clazzName = "io.metersphere.plugin.dummy.sampler.MsDummySampler";
 
-    @JSONField(ordinal = 10)
-    private String resp_code;
-    @JSONField(ordinal = 11)
-    private String resp_msg;
-    @JSONField(ordinal = 12)
-    private String connect_time;
-    @JSONField(ordinal = 13)
-    private String latency;
-    @JSONField(ordinal = 14)
-    private String resp_time;
-    @JSONField(ordinal = 15)
-    private Boolean waiting;
-    @JSONField(ordinal = 16)
-    private String req_data;
-    @JSONField(ordinal = 17)
-    private String resp_data;
-    @JSONField(ordinal = 18)
-    private String url;
-    @JSONField(ordinal = 19)
-    private Boolean successful;
+     private String resp_code;
+     private String resp_msg;
+     private String connect_time;
+     private String latency;
+     private String resp_time;
+     private Boolean waiting;
+     private String req_data;
+     private String resp_data;
+     private String url;
+     private Boolean successful;
 
     @Override
     public void toHashTree(HashTree tree, List<MsTestElement> hashTree, MsParameter config) {
@@ -76,7 +65,7 @@ public class MsDummySampler extends MsTestElement {
             dummySampler.setProperty("MS-RESOURCE-ID", this.getResourceId() + "_" + ElementUtil.getFullIndexPath(this.getParent(), indexPath));
             List<String> id_names = new LinkedList<>();
             ElementUtil.getScenarioSet(this, id_names);
-            dummySampler.setProperty("MS-SCENARIO", JSON.toJSONString(id_names));
+            dummySampler.setProperty("MS-SCENARIO", id_names.toString());
             dummySampler.setEnabled(this.isEnable());
             dummySampler.setName(this.getName());
 
