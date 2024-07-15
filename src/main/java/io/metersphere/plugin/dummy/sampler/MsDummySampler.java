@@ -59,7 +59,7 @@ public class MsDummySampler extends MsTestElement {
             String id = this.getId() != null && !Objects.equals(this.getId(), "") ? this.getId() : this.getResourceId();
             ElementUtil.setBaseParams(dummySampler, this.getParent(), id, this.getIndex());
             dummySampler.setEnabled(this.isEnable());
-            dummySampler.setName(this.getName());
+            dummySampler.setName(this.getName() == null || this.getName().isEmpty() ? "DummySampler" : this.getName());
 
             dummySampler.setProperty(TestElement.GUI_CLASS, "kg.apc.jmeter.samplers.DummySamplerGui");
             dummySampler.setProperty(TestElement.TEST_CLASS, "kg.apc.jmeter.samplers.DummySampler");
