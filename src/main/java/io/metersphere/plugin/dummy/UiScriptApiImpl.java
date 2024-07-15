@@ -4,21 +4,15 @@ import io.metersphere.plugin.core.api.UiScriptApi;
 import io.metersphere.plugin.core.ui.PluginResource;
 import io.metersphere.plugin.core.ui.UiScript;
 import io.metersphere.plugin.core.utils.LogUtil;
-
 import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
 public class UiScriptApiImpl extends UiScriptApi {
-    /**
-     * 企业版插件增加 这个方法
-     *
-     * @return 是否是企业版插件
-     */
-    public boolean xpack() {
-        return false;
-    }
 
     @Override
     public PluginResource init() {
@@ -40,19 +34,22 @@ public class UiScriptApiImpl extends UiScriptApi {
         // 一个插件提供多个步骤时，构造并添加多个 UiScript 对象
         uiScripts.add(dummyScript);
         LogUtil.info("初始化 DummySampler 插件脚本内容结束 ");
-        return new PluginResource("dummy-v1.0.0", uiScripts);
+        return new PluginResource("dummy-v1.0.2", uiScripts);
     }
 
     public String getJson(String path) {
-        try {
-            InputStream in = UiScriptApiImpl.class.getResourceAsStream(path);
-            String json = org.apache.commons.io.IOUtils.toString(in);
-            return json;
-        } catch (Exception ex) {
-            LogUtil.error(ex.getMessage());
+        try (InputStream in = UiScriptApiImpl.class.getResourceAsStream(path)) {
+            if (in != null) {
+                return IOUtils.toString(in, StandardCharsets.UTF_8);
+            } else {
+                LogUtil.error("Resource not found: " + path);
+            }
+        } catch (IOException ex) {
+            LogUtil.error("Failed to read resource: " + path, ex);
         }
         return null;
     }
+
 
     @Override
     public String customMethod(String req) {

@@ -1,20 +1,10 @@
 package io.metersphere.plugin.dummy.utils;
 
 import io.metersphere.plugin.core.MsTestElement;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.*;
+import io.metersphere.plugin.core.utils.LogUtil;
+import kg.apc.jmeter.samplers.DummySampler;
 
 public class ElementUtil {
-    public static void getScenarioSet(MsTestElement element, List<String> id_names) {
-        if (StringUtils.equals(element.getType(), "scenario")) {
-            id_names.add(element.getResourceId() + "_" + element.getName());
-        }
-        if (element.getParent() == null) {
-            return;
-        }
-        getScenarioSet(element.getParent(), id_names);
-    }
 
     public static String getFullIndexPath(MsTestElement element, String path) {
         if (element == null || element.getParent() == null) {
@@ -22,5 +12,16 @@ public class ElementUtil {
         }
         path = element.getIndex() + "_" + path;
         return getFullIndexPath(element.getParent(), path);
+    }
+
+    private static String getResourceId(String resourceId, MsTestElement parent, String indexPath) {
+        return resourceId + "_" + ElementUtil.getFullIndexPath(parent, indexPath);
+    }
+
+
+    public static void setBaseParams(DummySampler sampler, MsTestElement parent, String id, String indexPath) {
+        sampler.setProperty("MS-ID", id);
+        sampler.setProperty("MS-RESOURCE-ID", ElementUtil.getResourceId(id, parent, indexPath));
+        LogUtil.info("mqtt sampler resourceId :" + sampler.getPropertyAsString("MS-RESOURCE-ID"));
     }
 }
